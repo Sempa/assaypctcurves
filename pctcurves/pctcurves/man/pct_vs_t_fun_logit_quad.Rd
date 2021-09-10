@@ -8,7 +8,7 @@ Percentiles generated from P_r(t), with glm and logit link gml funtion
 A function to create percentile curves using a glm function and logit link function, with time since infection as a quad funtion
 }
 \usage{
-func_logit_quad(data_set, ODnTh, percentile)
+func_logit_quad(data_set, ODnTh, t_since_inf, percentile)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -21,7 +21,10 @@ func_logit_quad(data_set, ODnTh, percentile)
   The ODn resolution you need to evaluate the probability of being recent at time t (P_r(t))
 %%     ~~Describe \code{x} here~~
 }
-
+\item{t_since_inf}{
+  Timepoints within the intertest interval at which the function should be evaluated. in this case we use daily time steps from 1 to 1000 for this function. These timsteps are prefered because our aim with this is to create a dataset of descrete timesteps for use in the likelihood function.
+%%     ~~Describe \code{x} here~~
+}
 \item{percentile}{
   Sequence of percentils from 0.1 to .9 in steps of 0.1
 %%     ~~Describe \code{x} here~~
@@ -65,6 +68,7 @@ time_var <- seq(1, 1000, 1)
 x <- data.frame(pct_vs_t = pct_vs_t_fun_logit_quad(
   data_set = data_generate_pr_t,
   ODnTh = ODnth,
+  t_since_inf = time_var,
   percentile = seq(0.1, 0.9, 0.1)
 ))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
